@@ -20,19 +20,29 @@
   <%= @place.longitude %>
 </p>
 
-<script>
+
+<script type="text/javascript">
   handler = Gmaps.build('Google');
+  
   handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
     markers = handler.addMarkers(<%= raw @hash.to_json %>);
     handler.bounds.extendWith(markers);
     handler.fitMapToBounds();
+    
+    $.each(markers, function(index, marker){
+      google.maps.event.addListener(marker.getServiceObject(), "mouseover", function(){
+        this.setIcon('/assets/orange_circle.png');
+      });
+    })
+    
+    $.each(markers, function(index, marker){
+      google.maps.event.addListener(marker.getServiceObject(), "mouseout", function(){
+        this.setIcon('/assets/blue_circle.png');
+      });
+    })
   });
-
-  // marker = Gmaps.map.markers[0];
-  // google.maps.event.addListener(marker, "mouseover", function(event) {
-  //   marker.setIcon("/assets/click_sample_mrker.png")
-  // });
 </script>
+
 <div id="map" style="width: 800px; height: 400px;"></div>
 
 <%= link_to 'Edit', edit_place_path(@place) %> |

@@ -17,11 +17,11 @@ class PlacesController < ApplicationController
       marker.lng place.longitude
       marker.infowindow place.name
 
-       marker.picture({
-                        :url => ActionController::Base.helpers.asset_path("sample_marker.png"),
-                        :width => 48,
-                        :height => 48
-                      })
+      marker.picture({
+        :url => ActionController::Base.helpers.asset_path("blue_circle.png"),
+        :width => 10,
+        :height => 10
+      })
     end
   end
 
